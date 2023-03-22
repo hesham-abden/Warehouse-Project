@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WarehouseProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="website" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Customer_invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="int" Nullable="false" />
+          <Property Name="ware_id" Type="int" Nullable="false" />
+          <Property Name="invoice_date" Type="date" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="item_quantity" Type="int" Nullable="false" />
+          <Property Name="customer_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="mobile" Type="nvarchar" MaxLength="20" />
+          <Property Name="fax" Type="nvarchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar" MaxLength="30" />
+          <Property Name="website" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Supplier_invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="int" Nullable="false" />
+          <Property Name="ware_id" Type="int" Nullable="false" />
+          <Property Name="invoice_date" Type="date" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="item_quantity" Type="int" Nullable="false" />
+          <Property Name="supplier_id" Type="int" Nullable="false" />
+          <Property Name="manufacture_date" Type="date" Nullable="false" />
+          <Property Name="duration_month" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'WarehouseProject.dbo.Units' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Units">
+          <Property Name="item_code" Type="int" />
+          <Property Name="unit_type" Type="nvarchar" MaxLength="20" />
+          <Property Name="unit_value" Type="int" />
+        </EntityType>-->
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="ware_id" />
+          </Key>
+          <Property Name="ware_id" Type="int" Nullable="false" />
+          <Property Name="ware_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ware_address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="manager_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Warehouse_Items">
+          <Key>
+            <PropertyRef Name="ware_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="ware_id" Type="int" Nullable="false" />
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customer_invoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer_invoice">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_invoice_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Customer_invoice">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_invoice_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ware_id" />
+            </Principal>
+            <Dependent Role="Customer_invoice">
+              <PropertyRef Name="ware_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_invoice_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Supplier_invoice">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_invoice_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Supplier_invoice">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_invoice_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ware_id" />
+            </Principal>
+            <Dependent Role="Supplier_invoice">
+              <PropertyRef Name="ware_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_Units_Item" />-->
+        <Association Name="FK_Warehouse_Items_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Warehouse_Items" Type="Self.Warehouse_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Warehouse_Items">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Warehouse_Items_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Warehouse_Items" Type="Self.Warehouse_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ware_id" />
+            </Principal>
+            <Dependent Role="Warehouse_Items">
+              <PropertyRef Name="ware_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WarehouseProjectModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_invoice" EntityType="Self.Customer_invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier_invoice" EntityType="Self.Supplier_invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse_Items" EntityType="Self.Warehouse_Items" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_invoice_Customer" Association="Self.FK_Customer_invoice_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Customer_invoice" EntitySet="Customer_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_invoice_Item" Association="Self.FK_Customer_invoice_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Customer_invoice" EntitySet="Customer_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_invoice_Warehouse" Association="Self.FK_Customer_invoice_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Customer_invoice" EntitySet="Customer_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_invoice_Item" Association="Self.FK_Supplier_invoice_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_invoice_Supplier" Association="Self.FK_Supplier_invoice_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_invoice_Warehouse" Association="Self.FK_Supplier_invoice_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Items_Item" Association="Self.FK_Warehouse_Items_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Items_Warehouse" Association="Self.FK_Warehouse_Items_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WarehouseProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer_invoice" Relationship="Self.FK_Customer_invoice_Customer" FromRole="Customer" ToRole="Customer_invoice" />
+        </EntityType>
+        <EntityType Name="Customer_invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="invoice_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="item_quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_invoice_Customer" FromRole="Customer_invoice" ToRole="Customer" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Customer_invoice_Item" FromRole="Customer_invoice" ToRole="Item" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Customer_invoice_Warehouse" FromRole="Customer_invoice" ToRole="Warehouse" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customer_invoice" Relationship="Self.FK_Customer_invoice_Item" FromRole="Item" ToRole="Customer_invoice" />
+          <NavigationProperty Name="Supplier_invoice" Relationship="Self.FK_Supplier_invoice_Item" FromRole="Item" ToRole="Supplier_invoice" />
+          <NavigationProperty Name="Warehouse_Items" Relationship="Self.FK_Warehouse_Items_Item" FromRole="Item" ToRole="Warehouse_Items" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Supplier_invoice" Relationship="Self.FK_Supplier_invoice_Supplier" FromRole="Supplier" ToRole="Supplier_invoice" />
+        </EntityType>
+        <EntityType Name="Supplier_invoice">
+          <Key>
+            <PropertyRef Name="invoice_id" />
+          </Key>
+          <Property Name="invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="invoice_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="item_quantity" Type="Int32" Nullable="false" />
+          <Property Name="manufacture_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="duration_month" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Supplier_invoice_Item" FromRole="Supplier_invoice" ToRole="Item" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Supplier_invoice_Supplier" FromRole="Supplier_invoice" ToRole="Supplier" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Supplier_invoice_Warehouse" FromRole="Supplier_invoice" ToRole="Warehouse" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="ware_id" />
+          </Key>
+          <Property Name="ware_id" Type="Int32" Nullable="false" />
+          <Property Name="ware_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ware_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Customer_invoice" Relationship="Self.FK_Customer_invoice_Warehouse" FromRole="Warehouse" ToRole="Customer_invoice" />
+          <NavigationProperty Name="Supplier_invoice" Relationship="Self.FK_Supplier_invoice_Warehouse" FromRole="Warehouse" ToRole="Supplier_invoice" />
+          <NavigationProperty Name="Warehouse_Items" Relationship="Self.FK_Warehouse_Items_Warehouse" FromRole="Warehouse" ToRole="Warehouse_Items" />
+        </EntityType>
+        <EntityType Name="Warehouse_Items">
+          <Key>
+            <PropertyRef Name="ware_id" />
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="ware_id" Type="Int32" Nullable="false" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Warehouse_Items_Item" FromRole="Warehouse_Items" ToRole="Item" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.FK_Warehouse_Items_Warehouse" FromRole="Warehouse_Items" ToRole="Warehouse" />
+        </EntityType>
+        <Association Name="FK_Customer_invoice_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Customer_invoice_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Customer_invoice_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Supplier_invoice_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Warehouse_Items_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Warehouse_Items" Type="Self.Warehouse_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Warehouse_Items">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_invoice_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Supplier_invoice_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Warehouse_Items_Warehouse">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="Warehouse_Items" Type="Self.Warehouse_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ware_id" />
+            </Principal>
+            <Dependent Role="Warehouse_Items">
+              <PropertyRef Name="ware_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WarehouseProjectEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Customer_invoice" EntityType="Self.Customer_invoice" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="Supplier_invoice" EntityType="Self.Supplier_invoice" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+          <EntitySet Name="Warehouse_Items" EntityType="Self.Warehouse_Items" />
+          <AssociationSet Name="FK_Customer_invoice_Customer" Association="Self.FK_Customer_invoice_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Customer_invoice" EntitySet="Customer_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_invoice_Item" Association="Self.FK_Customer_invoice_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Customer_invoice" EntitySet="Customer_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_invoice_Warehouse" Association="Self.FK_Customer_invoice_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Customer_invoice" EntitySet="Customer_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_invoice_Item" Association="Self.FK_Supplier_invoice_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Items_Item" Association="Self.FK_Warehouse_Items_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_invoice_Supplier" Association="Self.FK_Supplier_invoice_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_invoice_Warehouse" Association="Self.FK_Supplier_invoice_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Warehouse_Items_Warehouse" Association="Self.FK_Warehouse_Items_Warehouse">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WarehouseProjectModelStoreContainer" CdmEntityContainer="WarehouseProjectEntities1">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="website" ColumnName="website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_invoice">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Customer_invoice">
+              <MappingFragment StoreEntitySet="Customer_invoice">
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="item_quantity" ColumnName="item_quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="website" ColumnName="website" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier_invoice">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Supplier_invoice">
+              <MappingFragment StoreEntitySet="Supplier_invoice">
+                <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="item_quantity" ColumnName="item_quantity" />
+                <ScalarProperty Name="manufacture_date" ColumnName="manufacture_date" />
+                <ScalarProperty Name="duration_month" ColumnName="duration_month" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="ware_id" ColumnName="ware_id" />
+                <ScalarProperty Name="ware_name" ColumnName="ware_name" />
+                <ScalarProperty Name="ware_address" ColumnName="ware_address" />
+                <ScalarProperty Name="manager_name" ColumnName="manager_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouse_Items">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Warehouse_Items">
+              <MappingFragment StoreEntitySet="Warehouse_Items">
+                <ScalarProperty Name="ware_id" ColumnName="ware_id" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Customer_invoice_Customer" TypeName="WarehouseProjectModel.FK_Customer_invoice_Customer" StoreEntitySet="Customer_invoice">
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="id" ColumnName="customer_id" />
+            </EndProperty>
+            <EndProperty Name="Customer_invoice">
+              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Customer_invoice_Item" TypeName="WarehouseProjectModel.FK_Customer_invoice_Item" StoreEntitySet="Customer_invoice">
+            <EndProperty Name="Item">
+              <ScalarProperty Name="code" ColumnName="item_id" />
+            </EndProperty>
+            <EndProperty Name="Customer_invoice">
+              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Customer_invoice_Warehouse" TypeName="WarehouseProjectModel.FK_Customer_invoice_Warehouse" StoreEntitySet="Customer_invoice">
+            <EndProperty Name="Warehouse">
+              <ScalarProperty Name="ware_id" ColumnName="ware_id" />
+            </EndProperty>
+            <EndProperty Name="Customer_invoice">
+              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Supplier_invoice_Item" TypeName="WarehouseProjectModel.FK_Supplier_invoice_Item" StoreEntitySet="Supplier_invoice">
+            <EndProperty Name="Item">
+              <ScalarProperty Name="code" ColumnName="item_id" />
+            </EndProperty>
+            <EndProperty Name="Supplier_invoice">
+              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Supplier_invoice_Supplier" TypeName="WarehouseProjectModel.FK_Supplier_invoice_Supplier" StoreEntitySet="Supplier_invoice">
+            <EndProperty Name="Supplier">
+              <ScalarProperty Name="id" ColumnName="supplier_id" />
+            </EndProperty>
+            <EndProperty Name="Supplier_invoice">
+              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Supplier_invoice_Warehouse" TypeName="WarehouseProjectModel.FK_Supplier_invoice_Warehouse" StoreEntitySet="Supplier_invoice">
+            <EndProperty Name="Warehouse">
+              <ScalarProperty Name="ware_id" ColumnName="ware_id" />
+            </EndProperty>
+            <EndProperty Name="Supplier_invoice">
+              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

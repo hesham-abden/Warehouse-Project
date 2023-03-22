@@ -1,6 +1,6 @@
 ﻿namespace Warehouse_Project
 {
-    partial class Warehouse
+    partial class WarehouseControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -57,6 +57,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Display";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -175,10 +176,10 @@
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(116, 220);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(638, 297);
+            this.dataGridView1.Size = new System.Drawing.Size(789, 297);
             this.dataGridView1.TabIndex = 11;
             // 
-            // Warehouse
+            // WarehouseControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -195,8 +196,8 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Warehouse";
-            this.Size = new System.Drawing.Size(779, 586);
+            this.Name = "WarehouseControl";
+            this.Size = new System.Drawing.Size(939, 586);
             this.Load += new System.EventHandler(this.Warehouse_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

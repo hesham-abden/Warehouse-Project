@@ -12,26 +12,23 @@ namespace Warehouse_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class Warehouse
+    public partial class Supplier
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Warehouse()
+        public Supplier()
         {
-            this.Customer_invoice = new HashSet<Customer_invoice>();
             this.Supplier_invoice = new HashSet<Supplier_invoice>();
-            this.Warehouse_Items = new HashSet<Warehouse_Items>();
         }
     
-        public int ware_id { get; set; }
-        public string ware_name { get; set; }
-        public string ware_address { get; set; }
-        public string manager_name { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string phone { get; set; }
+        public string mobile { get; set; }
+        public string fax { get; set; }
+        public string email { get; set; }
+        public string website { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer_invoice> Customer_invoice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supplier_invoice> Supplier_invoice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Warehouse_Items> Warehouse_Items { get; set; }
     }
 }

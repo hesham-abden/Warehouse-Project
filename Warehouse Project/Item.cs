@@ -12,20 +12,18 @@ namespace Warehouse_Project
     using System;
     using System.Collections.Generic;
     
-    public partial class Warehouse
+    public partial class Item
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Warehouse()
+        public Item()
         {
             this.Customer_invoice = new HashSet<Customer_invoice>();
             this.Supplier_invoice = new HashSet<Supplier_invoice>();
             this.Warehouse_Items = new HashSet<Warehouse_Items>();
         }
     
-        public int ware_id { get; set; }
-        public string ware_name { get; set; }
-        public string ware_address { get; set; }
-        public string manager_name { get; set; }
+        public int code { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer_invoice> Customer_invoice { get; set; }
