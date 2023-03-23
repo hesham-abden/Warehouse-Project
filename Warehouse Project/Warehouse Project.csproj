@@ -58,6 +58,12 @@
     <Compile Include="Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomersControl.Designer.cs">
+      <DependentUpon>CustomersControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer_invoice.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -96,11 +102,20 @@
     <Compile Include="sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserControl1.cs">
+    <Compile Include="Unit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ItemsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="ItemsControl.Designer.cs">
+      <DependentUpon>ItemsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SuppliersControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SuppliersControl.Designer.cs">
+      <DependentUpon>SuppliersControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Warehouse.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -114,6 +129,9 @@
     <Compile Include="Warehouse_Items.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomersControl.resx">
+      <DependentUpon>CustomersControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -127,8 +145,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <EmbeddedResource Include="ItemsControl.resx">
+      <DependentUpon>ItemsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SuppliersControl.resx">
+      <DependentUpon>SuppliersControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WarehouseControl.resx">
       <DependentUpon>WarehouseControl.cs</DependentUpon>

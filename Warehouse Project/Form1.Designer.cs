@@ -38,7 +38,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.suppliersControl1 = new Warehouse_Project.SuppliersControl();
+            this.userControl11 = new Warehouse_Project.ItemsControl();
             this.warehouseControl1 = new Warehouse_Project.WarehouseControl();
+            this.customersControl1 = new Warehouse_Project.CustomersControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,6 +82,7 @@
             this.button4.Size = new System.Drawing.Size(147, 84);
             this.button4.TabIndex = 4;
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -109,6 +113,7 @@
             this.button3.Size = new System.Drawing.Size(147, 84);
             this.button3.TabIndex = 3;
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -124,6 +129,7 @@
             this.button2.Size = new System.Drawing.Size(147, 84);
             this.button2.TabIndex = 2;
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button6
             // 
@@ -154,6 +160,7 @@
             this.button1.Size = new System.Drawing.Size(147, 84);
             this.button1.TabIndex = 1;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -187,13 +194,39 @@
             this.panel1.Size = new System.Drawing.Size(224, 680);
             this.panel1.TabIndex = 3;
             // 
+            // suppliersControl1
+            // 
+            this.suppliersControl1.BackColor = System.Drawing.Color.LightCyan;
+            this.suppliersControl1.Location = new System.Drawing.Point(243, 22);
+            this.suppliersControl1.Name = "suppliersControl1";
+            this.suppliersControl1.Size = new System.Drawing.Size(1046, 670);
+            this.suppliersControl1.TabIndex = 6;
+            // 
+            // userControl11
+            // 
+            this.userControl11.BackColor = System.Drawing.Color.LightCyan;
+            this.userControl11.Location = new System.Drawing.Point(309, 22);
+            this.userControl11.Name = "userControl11";
+            this.userControl11.Size = new System.Drawing.Size(894, 601);
+            this.userControl11.TabIndex = 5;
+            // 
             // warehouseControl1
             // 
             this.warehouseControl1.BackColor = System.Drawing.Color.LightCyan;
-            this.warehouseControl1.Location = new System.Drawing.Point(242, 12);
+            this.warehouseControl1.Font = new System.Drawing.Font("Swis721 BlkEx BT", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warehouseControl1.Location = new System.Drawing.Point(243, 12);
+            this.warehouseControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.warehouseControl1.Name = "warehouseControl1";
-            this.warehouseControl1.Size = new System.Drawing.Size(1031, 586);
+            this.warehouseControl1.Size = new System.Drawing.Size(1046, 625);
             this.warehouseControl1.TabIndex = 4;
+            // 
+            // customersControl1
+            // 
+            this.customersControl1.BackColor = System.Drawing.Color.LightCyan;
+            this.customersControl1.Location = new System.Drawing.Point(243, 12);
+            this.customersControl1.Name = "customersControl1";
+            this.customersControl1.Size = new System.Drawing.Size(1046, 692);
+            this.customersControl1.TabIndex = 7;
             // 
             // Form1
             // 
@@ -201,6 +234,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
             this.ClientSize = new System.Drawing.Size(1301, 749);
+            this.Controls.Add(this.customersControl1);
+            this.Controls.Add(this.suppliersControl1);
+            this.Controls.Add(this.userControl11);
             this.Controls.Add(this.warehouseControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -225,6 +261,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
         private WarehouseControl warehouseControl1;
+        private ItemsControl userControl11;
+        private SuppliersControl suppliersControl1;
+        private CustomersControl customersControl1;
     }
 }
 

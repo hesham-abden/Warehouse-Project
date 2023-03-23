@@ -20,6 +20,7 @@ namespace Warehouse_Project
             this.Customer_invoice = new HashSet<Customer_invoice>();
             this.Supplier_invoice = new HashSet<Supplier_invoice>();
             this.Warehouse_Items = new HashSet<Warehouse_Items>();
+            this.Units = new HashSet<Unit>();
         }
     
         public int code { get; set; }
@@ -31,5 +32,7 @@ namespace Warehouse_Project
         public virtual ICollection<Supplier_invoice> Supplier_invoice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Warehouse_Items> Warehouse_Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Unit> Units { get; set; }
     }
 }

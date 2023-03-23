@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WarehouseProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WarehouseProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="id" />
@@ -70,13 +70,15 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'WarehouseProject.dbo.Units' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="Units">
-          <Property Name="item_code" Type="int" />
-          <Property Name="unit_type" Type="nvarchar" MaxLength="20" />
+          <Key>
+            <PropertyRef Name="item_code" />
+            <PropertyRef Name="unit_type" />
+          </Key>
+          <Property Name="item_code" Type="int" Nullable="false" />
+          <Property Name="unit_type" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="unit_value" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="Warehouse">
           <Key>
             <PropertyRef Name="ware_id" />
@@ -167,9 +169,18 @@ warning 6013: The table/view 'WarehouseProject.dbo.Units' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errors Found During Generation:
-error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationship, but cannot be found.
-        <Association Name="FK_Units_Item" />-->
+        <Association Name="FK_Units_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Units" Type="Self.Units" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Units">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Warehouse_Items_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
           <End Role="Warehouse_Items" Type="Self.Warehouse_Items" Multiplicity="*" />
@@ -201,6 +212,7 @@ error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationsh
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier_invoice" EntityType="Self.Supplier_invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Units" EntityType="Self.Units" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Warehouse_Items" EntityType="Self.Warehouse_Items" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Customer_invoice_Customer" Association="Self.FK_Customer_invoice_Customer">
@@ -227,6 +239,10 @@ error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationsh
             <End Role="Warehouse" EntitySet="Warehouse" />
             <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
           </AssociationSet>
+          <AssociationSet Name="FK_Units_Item" Association="Self.FK_Units_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Units" EntitySet="Units" />
+          </AssociationSet>
           <AssociationSet Name="FK_Warehouse_Items_Item" Association="Self.FK_Warehouse_Items_Item">
             <End Role="Item" EntitySet="Item" />
             <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
@@ -236,8 +252,7 @@ error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationsh
             <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WarehouseProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -274,6 +289,7 @@ error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationsh
           <NavigationProperty Name="Customer_invoice" Relationship="Self.FK_Customer_invoice_Item" FromRole="Item" ToRole="Customer_invoice" />
           <NavigationProperty Name="Supplier_invoice" Relationship="Self.FK_Supplier_invoice_Item" FromRole="Item" ToRole="Supplier_invoice" />
           <NavigationProperty Name="Warehouse_Items" Relationship="Self.FK_Warehouse_Items_Item" FromRole="Item" ToRole="Warehouse_Items" />
+          <NavigationProperty Name="Units" Relationship="WarehouseProjectModel.FK_Units_Item" FromRole="Item" ToRole="Unit" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -423,7 +439,34 @@ error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationsh
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
           </AssociationSet>
+          <EntitySet Name="Units" EntityType="WarehouseProjectModel.Unit" />
+          <AssociationSet Name="FK_Units_Item" Association="WarehouseProjectModel.FK_Units_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Unit" EntitySet="Units" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="item_code" />
+            <PropertyRef Name="unit_type" />
+          </Key>
+          <Property Name="item_code" Type="Int32" Nullable="false" />
+          <Property Name="unit_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="unit_value" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="WarehouseProjectModel.FK_Units_Item" FromRole="Unit" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Units_Item">
+          <End Type="WarehouseProjectModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="WarehouseProjectModel.Unit" Role="Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Unit">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -562,6 +605,15 @@ error 6004: The table 'WarehouseProject.dbo.Units' is referenced by a relationsh
               <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Unit">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="unit_value" ColumnName="unit_value" />
+                <ScalarProperty Name="unit_type" ColumnName="unit_type" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

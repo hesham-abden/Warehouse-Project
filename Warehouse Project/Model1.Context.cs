@@ -33,5 +33,6 @@ namespace Warehouse_Project
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Warehouse_Items> Warehouse_Items { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
     }
 }
