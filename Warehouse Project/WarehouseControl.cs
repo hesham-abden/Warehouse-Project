@@ -44,6 +44,14 @@ namespace Warehouse_Project
             wh_name.Text = dataGridView1.Rows[RowIndex].Cells[1].Value.ToString();
             wh_manager.Text =dataGridView1.Rows[RowIndex].Cells[2].Value.ToString();
             wh_address.Text= dataGridView1.Rows[RowIndex].Cells[3].Value.ToString();
+            var values = warehouse.Warehouse_Items.Select(i => new
+            {
+                Item = i.Item.name,
+                Unit = i.Item.Units.FirstOrDefault().unit_type,
+                Quantity = i.quantity
+
+            }) ;
+            dataGridView2.DataSource = values.ToList();
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -31,6 +31,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.wh_name = new System.Windows.Forms.TextBox();
             this.wh_address = new System.Windows.Forms.TextBox();
@@ -46,7 +49,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.wh_id = new System.Windows.Forms.TextBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -55,7 +60,7 @@
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightCyan;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(174, 60);
+            this.button1.Location = new System.Drawing.Point(88, 57);
             this.button1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(122, 47);
@@ -66,7 +71,7 @@
             // 
             // wh_name
             // 
-            this.wh_name.Location = new System.Drawing.Point(174, 173);
+            this.wh_name.Location = new System.Drawing.Point(88, 170);
             this.wh_name.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.wh_name.Multiline = true;
             this.wh_name.Name = "wh_name";
@@ -75,7 +80,7 @@
             // 
             // wh_address
             // 
-            this.wh_address.Location = new System.Drawing.Point(174, 247);
+            this.wh_address.Location = new System.Drawing.Point(88, 244);
             this.wh_address.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.wh_address.Name = "wh_address";
             this.wh_address.Size = new System.Drawing.Size(364, 21);
@@ -83,7 +88,7 @@
             // 
             // wh_manager
             // 
-            this.wh_manager.Location = new System.Drawing.Point(174, 208);
+            this.wh_manager.Location = new System.Drawing.Point(88, 205);
             this.wh_manager.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.wh_manager.Name = "wh_manager";
             this.wh_manager.Size = new System.Drawing.Size(364, 21);
@@ -93,7 +98,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Swis721 BlkEx BT", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(400, 13);
+            this.label1.Location = new System.Drawing.Point(314, 10);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(250, 32);
@@ -104,7 +109,7 @@
             // 
             this.wh_lab.AutoSize = true;
             this.wh_lab.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wh_lab.Location = new System.Drawing.Point(110, 170);
+            this.wh_lab.Location = new System.Drawing.Point(24, 167);
             this.wh_lab.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.wh_lab.Name = "wh_lab";
             this.wh_lab.Size = new System.Drawing.Size(56, 26);
@@ -115,7 +120,7 @@
             // 
             this.wh_labell.AutoSize = true;
             this.wh_labell.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wh_labell.Location = new System.Drawing.Point(94, 242);
+            this.wh_labell.Location = new System.Drawing.Point(8, 239);
             this.wh_labell.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.wh_labell.Name = "wh_labell";
             this.wh_labell.Size = new System.Drawing.Size(72, 26);
@@ -126,7 +131,7 @@
             // 
             this.wh_label.AutoSize = true;
             this.wh_label.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wh_label.Location = new System.Drawing.Point(87, 203);
+            this.wh_label.Location = new System.Drawing.Point(1, 200);
             this.wh_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.wh_label.Name = "wh_label";
             this.wh_label.Size = new System.Drawing.Size(79, 26);
@@ -158,10 +163,10 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Location = new System.Drawing.Point(174, 290);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 287);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(691, 320);
+            this.dataGridView1.Size = new System.Drawing.Size(544, 320);
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -173,7 +178,7 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button5.Font = new System.Drawing.Font("Segoe Print", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.button5.Location = new System.Drawing.Point(558, 132);
+            this.button5.Location = new System.Drawing.Point(472, 129);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(92, 62);
@@ -188,7 +193,7 @@
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightCyan;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(370, 60);
+            this.button2.Location = new System.Drawing.Point(284, 57);
             this.button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(122, 47);
@@ -203,7 +208,7 @@
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.LightCyan;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(558, 60);
+            this.button3.Location = new System.Drawing.Point(472, 57);
             this.button3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(122, 47);
@@ -231,7 +236,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(130, 132);
+            this.label2.Location = new System.Drawing.Point(44, 129);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 26);
@@ -241,18 +246,50 @@
             // 
             // wh_id
             // 
-            this.wh_id.Location = new System.Drawing.Point(174, 132);
+            this.wh_id.Location = new System.Drawing.Point(88, 129);
             this.wh_id.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.wh_id.Multiline = true;
             this.wh_id.Name = "wh_id";
             this.wh_id.Size = new System.Drawing.Size(364, 21);
             this.wh_id.TabIndex = 16;
             // 
+            // dataGridView2
+            // 
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightSeaGreen;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Teal;
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView2.BackgroundColor = System.Drawing.Color.LightCyan;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.MintCream;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Swis721 BlkEx BT", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Swis721 BlkEx BT", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Turquoise;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridView2.Location = new System.Drawing.Point(582, 287);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(308, 320);
+            this.dataGridView2.TabIndex = 18;
+            // 
             // WarehouseControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.wh_id);
             this.Controls.Add(this.button4);
@@ -273,6 +310,7 @@
             this.Name = "WarehouseControl";
             this.Size = new System.Drawing.Size(919, 631);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,5 +333,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox wh_id;
+        private System.Windows.Forms.DataGridView dataGridView2;
     }
 }
