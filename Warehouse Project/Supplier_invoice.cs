@@ -15,8 +15,11 @@ namespace Warehouse_Project
     public partial class Supplier_invoice
     {
         public int invoice_id { get; set; }
+        public int ware_id { get; set; }
         public System.DateTime invoice_date { get; set; }
+        public int item_id { get; set; }
         public int item_quantity { get; set; }
+        public int supplier_id { get; set; }
         public System.DateTime manufacture_date { get; set; }
         public Nullable<int> duration_month { get; set; }
     

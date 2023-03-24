@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WarehouseProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WarehouseProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="id" />
@@ -252,7 +252,8 @@
             <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WarehouseProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -274,8 +275,11 @@
             <PropertyRef Name="invoice_id" />
           </Key>
           <Property Name="invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="ware_id" Type="Int32" Nullable="false" />
           <Property Name="invoice_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
           <Property Name="item_quantity" Type="Int32" Nullable="false" />
+          <Property Name="customer_id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_invoice_Customer" FromRole="Customer_invoice" ToRole="Customer" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Customer_invoice_Item" FromRole="Customer_invoice" ToRole="Item" />
           <NavigationProperty Name="Warehouse" Relationship="Self.FK_Customer_invoice_Warehouse" FromRole="Customer_invoice" ToRole="Warehouse" />
@@ -288,8 +292,8 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Customer_invoice" Relationship="Self.FK_Customer_invoice_Item" FromRole="Item" ToRole="Customer_invoice" />
           <NavigationProperty Name="Supplier_invoice" Relationship="Self.FK_Supplier_invoice_Item" FromRole="Item" ToRole="Supplier_invoice" />
+          <NavigationProperty Name="Units" Relationship="Self.FK_Units_Item" FromRole="Item" ToRole="Units" />
           <NavigationProperty Name="Warehouse_Items" Relationship="Self.FK_Warehouse_Items_Item" FromRole="Item" ToRole="Warehouse_Items" />
-          <NavigationProperty Name="Units" Relationship="WarehouseProjectModel.FK_Units_Item" FromRole="Item" ToRole="Unit" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -309,8 +313,11 @@
             <PropertyRef Name="invoice_id" />
           </Key>
           <Property Name="invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="ware_id" Type="Int32" Nullable="false" />
           <Property Name="invoice_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="item_id" Type="Int32" Nullable="false" />
           <Property Name="item_quantity" Type="Int32" Nullable="false" />
+          <Property Name="supplier_id" Type="Int32" Nullable="false" />
           <Property Name="manufacture_date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="duration_month" Type="Int32" />
           <NavigationProperty Name="Item" Relationship="Self.FK_Supplier_invoice_Item" FromRole="Supplier_invoice" ToRole="Item" />
@@ -326,6 +333,16 @@
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="item_code" />
+            <PropertyRef Name="unit_type" />
+          </Key>
+          <Property Name="item_code" Type="Int32" Nullable="false" />
+          <Property Name="unit_type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="unit_value" Type="Int32" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Units_Item" FromRole="Units" ToRole="Item" />
         </EntityType>
         <EntityType Name="Warehouse">
           <Key>
@@ -353,18 +370,62 @@
         <Association Name="FK_Customer_invoice_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Customer_invoice">
+              <PropertyRef Name="customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Customer_invoice_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
           <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Customer_invoice">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Customer_invoice_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="Customer_invoice" Type="Self.Customer_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ware_id" />
+            </Principal>
+            <Dependent Role="Customer_invoice">
+              <PropertyRef Name="ware_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Supplier_invoice_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
           <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Supplier_invoice">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Units_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Units" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="Units">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Warehouse_Items_Item">
           <End Role="Item" Type="Self.Item" Multiplicity="1" />
@@ -381,10 +442,26 @@
         <Association Name="FK_Supplier_invoice_Supplier">
           <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
           <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Supplier_invoice">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Supplier_invoice_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
           <End Role="Supplier_invoice" Type="Self.Supplier_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="ware_id" />
+            </Principal>
+            <Dependent Role="Supplier_invoice">
+              <PropertyRef Name="ware_id" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         <Association Name="FK_Warehouse_Items_Warehouse">
           <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
@@ -398,13 +475,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="WarehouseProjectEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="WarehouseProjectEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Customer_invoice" EntityType="Self.Customer_invoice" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="Supplier_invoice" EntityType="Self.Supplier_invoice" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Units" EntityType="Self.Unit" />
           <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
           <EntitySet Name="Warehouse_Items" EntityType="Self.Warehouse_Items" />
           <AssociationSet Name="FK_Customer_invoice_Customer" Association="Self.FK_Customer_invoice_Customer">
@@ -423,6 +501,10 @@
             <End Role="Item" EntitySet="Items" />
             <End Role="Supplier_invoice" EntitySet="Supplier_invoice" />
           </AssociationSet>
+          <AssociationSet Name="FK_Units_Item" Association="Self.FK_Units_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Units" EntitySet="Units" />
+          </AssociationSet>
           <AssociationSet Name="FK_Warehouse_Items_Item" Association="Self.FK_Warehouse_Items_Item">
             <End Role="Item" EntitySet="Items" />
             <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
@@ -439,40 +521,13 @@
             <End Role="Warehouse" EntitySet="Warehouses" />
             <End Role="Warehouse_Items" EntitySet="Warehouse_Items" />
           </AssociationSet>
-          <EntitySet Name="Units" EntityType="WarehouseProjectModel.Unit" />
-          <AssociationSet Name="FK_Units_Item" Association="WarehouseProjectModel.FK_Units_Item">
-            <End Role="Item" EntitySet="Items" />
-            <End Role="Unit" EntitySet="Units" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Unit">
-          <Key>
-            <PropertyRef Name="item_code" />
-            <PropertyRef Name="unit_type" />
-          </Key>
-          <Property Name="item_code" Type="Int32" Nullable="false" />
-          <Property Name="unit_type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="unit_value" Type="Int32" />
-          <NavigationProperty Name="Item" Relationship="WarehouseProjectModel.FK_Units_Item" FromRole="Unit" ToRole="Item" />
-        </EntityType>
-        <Association Name="FK_Units_Item">
-          <End Type="WarehouseProjectModel.Item" Role="Item" Multiplicity="1" />
-          <End Type="WarehouseProjectModel.Unit" Role="Unit" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Item">
-              <PropertyRef Name="code" />
-            </Principal>
-            <Dependent Role="Unit">
-              <PropertyRef Name="item_code" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WarehouseProjectModelStoreContainer" CdmEntityContainer="WarehouseProjectEntities1">
+        <EntityContainerMapping StorageEntityContainer="WarehouseProjectModelStoreContainer" CdmEntityContainer="WarehouseProjectEntities">
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="WarehouseProjectModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
@@ -490,8 +545,11 @@
             <EntityTypeMapping TypeName="WarehouseProjectModel.Customer_invoice">
               <MappingFragment StoreEntitySet="Customer_invoice">
                 <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="ware_id" ColumnName="ware_id" />
                 <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
                 <ScalarProperty Name="item_quantity" ColumnName="item_quantity" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -520,8 +578,11 @@
             <EntityTypeMapping TypeName="WarehouseProjectModel.Supplier_invoice">
               <MappingFragment StoreEntitySet="Supplier_invoice">
                 <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
+                <ScalarProperty Name="ware_id" ColumnName="ware_id" />
                 <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
                 <ScalarProperty Name="item_quantity" ColumnName="item_quantity" />
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
                 <ScalarProperty Name="manufacture_date" ColumnName="manufacture_date" />
                 <ScalarProperty Name="duration_month" ColumnName="duration_month" />
               </MappingFragment>
@@ -535,6 +596,15 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="WarehouseProjectModel.Unit">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="unit_type" ColumnName="unit_type" />
+                <ScalarProperty Name="unit_value" ColumnName="unit_value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -557,63 +627,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_Customer_invoice_Customer" TypeName="WarehouseProjectModel.FK_Customer_invoice_Customer" StoreEntitySet="Customer_invoice">
-            <EndProperty Name="Customer">
-              <ScalarProperty Name="id" ColumnName="customer_id" />
-            </EndProperty>
-            <EndProperty Name="Customer_invoice">
-              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Customer_invoice_Item" TypeName="WarehouseProjectModel.FK_Customer_invoice_Item" StoreEntitySet="Customer_invoice">
-            <EndProperty Name="Item">
-              <ScalarProperty Name="code" ColumnName="item_id" />
-            </EndProperty>
-            <EndProperty Name="Customer_invoice">
-              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Customer_invoice_Warehouse" TypeName="WarehouseProjectModel.FK_Customer_invoice_Warehouse" StoreEntitySet="Customer_invoice">
-            <EndProperty Name="Warehouse">
-              <ScalarProperty Name="ware_id" ColumnName="ware_id" />
-            </EndProperty>
-            <EndProperty Name="Customer_invoice">
-              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Supplier_invoice_Item" TypeName="WarehouseProjectModel.FK_Supplier_invoice_Item" StoreEntitySet="Supplier_invoice">
-            <EndProperty Name="Item">
-              <ScalarProperty Name="code" ColumnName="item_id" />
-            </EndProperty>
-            <EndProperty Name="Supplier_invoice">
-              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Supplier_invoice_Supplier" TypeName="WarehouseProjectModel.FK_Supplier_invoice_Supplier" StoreEntitySet="Supplier_invoice">
-            <EndProperty Name="Supplier">
-              <ScalarProperty Name="id" ColumnName="supplier_id" />
-            </EndProperty>
-            <EndProperty Name="Supplier_invoice">
-              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Supplier_invoice_Warehouse" TypeName="WarehouseProjectModel.FK_Supplier_invoice_Warehouse" StoreEntitySet="Supplier_invoice">
-            <EndProperty Name="Warehouse">
-              <ScalarProperty Name="ware_id" ColumnName="ware_id" />
-            </EndProperty>
-            <EndProperty Name="Supplier_invoice">
-              <ScalarProperty Name="invoice_id" ColumnName="invoice_id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <EntitySetMapping Name="Units">
-            <EntityTypeMapping TypeName="WarehouseProjectModel.Unit">
-              <MappingFragment StoreEntitySet="Units">
-                <ScalarProperty Name="unit_value" ColumnName="unit_value" />
-                <ScalarProperty Name="unit_type" ColumnName="unit_type" />
-                <ScalarProperty Name="item_code" ColumnName="item_code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -629,7 +642,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

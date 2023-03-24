@@ -58,6 +58,12 @@
     <Compile Include="Customer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomerInvoicesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomerInvoicesControl.Designer.cs">
+      <DependentUpon>CustomerInvoicesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomersControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -91,20 +97,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Supplier.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Supplier_invoice.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="SupplierInvoicesControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="SupplierInvoicesControl.Designer.cs">
+      <DependentUpon>SupplierInvoicesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Unit.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItemsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +119,15 @@
     </Compile>
     <Compile Include="SuppliersControl.Designer.cs">
       <DependentUpon>SuppliersControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier_invoice.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Unit.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Warehouse.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -129,6 +141,9 @@
     <Compile Include="Warehouse_Items.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomerInvoicesControl.resx">
+      <DependentUpon>CustomerInvoicesControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomersControl.resx">
       <DependentUpon>CustomersControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,6 +162,9 @@
     </Compile>
     <EmbeddedResource Include="ItemsControl.resx">
       <DependentUpon>ItemsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupplierInvoicesControl.resx">
+      <DependentUpon>SupplierInvoicesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuppliersControl.resx">
       <DependentUpon>SuppliersControl.cs</DependentUpon>

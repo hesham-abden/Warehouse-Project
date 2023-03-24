@@ -38,10 +38,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.suppliersControl1 = new Warehouse_Project.SuppliersControl();
-            this.userControl11 = new Warehouse_Project.ItemsControl();
-            this.warehouseControl1 = new Warehouse_Project.WarehouseControl();
+            this.customerInvoicesControl1 = new Warehouse_Project.CustomerInvoicesControl();
+            this.itemsControl1 = new Warehouse_Project.ItemsControl();
             this.customersControl1 = new Warehouse_Project.CustomersControl();
+            this.suppliersControl1 = new Warehouse_Project.SuppliersControl();
+            this.warehouseControl1 = new Warehouse_Project.WarehouseControl();
+            this.supplierInvoicesControl1 = new Warehouse_Project.SupplierInvoicesControl();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +100,7 @@
             this.button5.Size = new System.Drawing.Size(147, 86);
             this.button5.TabIndex = 5;
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button3
             // 
@@ -145,6 +148,7 @@
             this.button6.Size = new System.Drawing.Size(147, 84);
             this.button6.TabIndex = 6;
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button1
             // 
@@ -194,6 +198,30 @@
             this.panel1.Size = new System.Drawing.Size(224, 680);
             this.panel1.TabIndex = 3;
             // 
+            // customerInvoicesControl1
+            // 
+            this.customerInvoicesControl1.BackColor = System.Drawing.Color.LightCyan;
+            this.customerInvoicesControl1.Location = new System.Drawing.Point(242, 12);
+            this.customerInvoicesControl1.Name = "customerInvoicesControl1";
+            this.customerInvoicesControl1.Size = new System.Drawing.Size(1097, 653);
+            this.customerInvoicesControl1.TabIndex = 9;
+            // 
+            // itemsControl1
+            // 
+            this.itemsControl1.BackColor = System.Drawing.Color.LightCyan;
+            this.itemsControl1.Location = new System.Drawing.Point(253, 12);
+            this.itemsControl1.Name = "itemsControl1";
+            this.itemsControl1.Size = new System.Drawing.Size(1014, 603);
+            this.itemsControl1.TabIndex = 8;
+            // 
+            // customersControl1
+            // 
+            this.customersControl1.BackColor = System.Drawing.Color.LightCyan;
+            this.customersControl1.Location = new System.Drawing.Point(253, 12);
+            this.customersControl1.Name = "customersControl1";
+            this.customersControl1.Size = new System.Drawing.Size(1036, 692);
+            this.customersControl1.TabIndex = 7;
+            // 
             // suppliersControl1
             // 
             this.suppliersControl1.BackColor = System.Drawing.Color.LightCyan;
@@ -201,14 +229,6 @@
             this.suppliersControl1.Name = "suppliersControl1";
             this.suppliersControl1.Size = new System.Drawing.Size(1046, 670);
             this.suppliersControl1.TabIndex = 6;
-            // 
-            // userControl11
-            // 
-            this.userControl11.BackColor = System.Drawing.Color.LightCyan;
-            this.userControl11.Location = new System.Drawing.Point(309, 22);
-            this.userControl11.Name = "userControl11";
-            this.userControl11.Size = new System.Drawing.Size(894, 601);
-            this.userControl11.TabIndex = 5;
             // 
             // warehouseControl1
             // 
@@ -220,23 +240,25 @@
             this.warehouseControl1.Size = new System.Drawing.Size(1046, 625);
             this.warehouseControl1.TabIndex = 4;
             // 
-            // customersControl1
+            // supplierInvoicesControl1
             // 
-            this.customersControl1.BackColor = System.Drawing.Color.LightCyan;
-            this.customersControl1.Location = new System.Drawing.Point(243, 12);
-            this.customersControl1.Name = "customersControl1";
-            this.customersControl1.Size = new System.Drawing.Size(1046, 692);
-            this.customersControl1.TabIndex = 7;
+            this.supplierInvoicesControl1.BackColor = System.Drawing.Color.LightCyan;
+            this.supplierInvoicesControl1.Location = new System.Drawing.Point(247, 12);
+            this.supplierInvoicesControl1.Name = "supplierInvoicesControl1";
+            this.supplierInvoicesControl1.Size = new System.Drawing.Size(1092, 692);
+            this.supplierInvoicesControl1.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(1301, 749);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.supplierInvoicesControl1);
+            this.Controls.Add(this.customerInvoicesControl1);
+            this.Controls.Add(this.itemsControl1);
             this.Controls.Add(this.customersControl1);
             this.Controls.Add(this.suppliersControl1);
-            this.Controls.Add(this.userControl11);
             this.Controls.Add(this.warehouseControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
@@ -261,9 +283,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
         private WarehouseControl warehouseControl1;
-        private ItemsControl userControl11;
         private SuppliersControl suppliersControl1;
         private CustomersControl customersControl1;
+        private ItemsControl itemsControl1;
+        private CustomerInvoicesControl customerInvoicesControl1;
+        private SupplierInvoicesControl supplierInvoicesControl1;
     }
 }
 

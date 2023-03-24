@@ -13,10 +13,10 @@ namespace Warehouse_Project
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WarehouseProjectEntities1 : DbContext
+    public partial class WarehouseProjectEntities : DbContext
     {
-        public WarehouseProjectEntities1()
-            : base("name=WarehouseProjectEntities1")
+        public WarehouseProjectEntities()
+            : base("name=WarehouseProjectEntities")
         {
         }
     
@@ -31,8 +31,8 @@ namespace Warehouse_Project
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Supplier_invoice> Supplier_invoice { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Warehouse_Items> Warehouse_Items { get; set; }
-        public virtual DbSet<Unit> Units { get; set; }
     }
 }

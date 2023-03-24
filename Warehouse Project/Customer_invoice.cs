@@ -15,8 +15,11 @@ namespace Warehouse_Project
     public partial class Customer_invoice
     {
         public int invoice_id { get; set; }
+        public int ware_id { get; set; }
         public System.DateTime invoice_date { get; set; }
+        public int item_id { get; set; }
         public int item_quantity { get; set; }
+        public int customer_id { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Item Item { get; set; }

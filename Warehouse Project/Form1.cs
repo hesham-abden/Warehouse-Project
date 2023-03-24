@@ -1,53 +1,69 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Warehouse_Project
 {
     public partial class Form1 : Form
     {
-        public int x = 0;
+        
 
-        static public WarehouseProjectEntities1 ent=new WarehouseProjectEntities1();
+        static public WarehouseProjectEntities ent=new WarehouseProjectEntities();
+
+        List<Control> CustomControls;
         public Form1()
         {
             InitializeComponent();
+            CustomControls = new List<Control>(new Control[] { warehouseControl1,
+                supplierInvoicesControl1,
+                customerInvoicesControl1,
+                suppliersControl1,
+                itemsControl1,
+                customersControl1});
             this.WindowState = FormWindowState.Maximized;
-            this.warehouseControl1.Hide();
-            this.userControl11.Hide();
-            this.suppliersControl1.Hide();
-            this.customersControl1.Hide();
+
+            ShowControl(this.warehouseControl1);
+       
+
+        }
+        public  void ShowControl(Control control)
+        {
+            CustomControls.ForEach(c => c.Hide());
+            control.Show();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            this.warehouseControl1.Show();
-            this.userControl11.Hide();
-            this.suppliersControl1.Hide();
-            this.customersControl1.Hide();
+            ShowControl(this.warehouseControl1);
+
 
         }
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            this.warehouseControl1.Hide();
-            this.userControl11.Show();
-            this.suppliersControl1.Hide();
-            this.customersControl1.Hide();
+            ShowControl(this.itemsControl1);
         }
 
         private void button4_Click(object sender, System.EventArgs e)
         {
-            this.suppliersControl1.Show();
-            this.userControl11.Hide();
-            this.warehouseControl1.Hide();
-            this.customersControl1.Hide();
+            ShowControl(this.suppliersControl1);
         }
 
         private void button3_Click(object sender, System.EventArgs e)
         {
-            this.suppliersControl1.Hide();
-            this.userControl11.Hide();
-            this.warehouseControl1.Hide();
-            this.customersControl1.Show();
+            ShowControl(this.customersControl1);
+
         }
+
+        private void button6_Click(object sender, System.EventArgs e)
+        {
+            ShowControl(this.supplierInvoicesControl1);
+        }
+
+        private void button5_Click(object sender, System.EventArgs e)
+        {
+            ShowControl(this.customerInvoicesControl1);
+        }
+
+        
     }
 }
