@@ -99,7 +99,9 @@ namespace Warehouse_Project
 
         private void button2_Click(object sender, EventArgs e)
         {
+
             int tempid;
+
             if (int.TryParse(Inv_Id.Text, out tempid)
                 && textBoxes.TrueForAll(m => m.Text != "")
                 && comboBoxes.TrueForAll(m => m.SelectedItem != null)
